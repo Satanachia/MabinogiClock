@@ -44,8 +44,8 @@ namespace MabinogiClock
             foreach(var c in _clocks)
                 if (c.IsEnabled && !c.IsInvalid && c.MabinogiTime.Hour == now.Hour && c.MabinogiTime.Minute == now.Minute)
                 {
-                    MessageBox.Show(this.now.Text, Title, MessageBoxButton.OK, MessageBoxImage.None, MessageBoxResult.None, MessageBoxOptions.ServiceNotification);
                     sound.Play();
+                    MessageBox.Show(this.now.Text, Title, MessageBoxButton.OK, MessageBoxImage.None, MessageBoxResult.None, MessageBoxOptions.ServiceNotification);
                 }
         }
 

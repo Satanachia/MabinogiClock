@@ -55,7 +55,7 @@
                     </ListView>
                 </Grid>
             </TabItem>
-            <TabItem Header="倒计时">
+            <TabItem Header="倒计时" IsEnabled="False">
                 <Grid>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="倒计时间（时:分:秒）："/>
