@@ -9,6 +9,16 @@ namespace MabinogiClock
 {
     class Clock : INotifyPropertyChanged
     {
+        public static DateTime Real2Mabinogi(DateTime realTime)
+        {
+            //爱琳时间24小时=现实36分钟，60分钟=90秒，1分钟=1.5秒
+            var seconds = (realTime.Hour * 60 + realTime.Minute)*60 + realTime.Second + realTime.Millisecond/1000d;
+            var mabiMinutes = (int)Math.Round(seconds / 1.5);
+            var mabiHour = (mabiMinutes / 60) % 24;
+            var mabiMinute = mabiMinutes % 60;
+            return new DateTime(2021, 1, 1, mabiHour, mabiMinute, 0);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         bool _isEnabled;
@@ -44,14 +54,12 @@ namespace MabinogiClock
         }
         public bool IsInvalid { get; set; }
 
-        public static DateTime Real2Mabinogi(DateTime realTime)
+        MessageWindow window;
+        public void ShowMessageBox()
         {
-            //爱琳时间24小时=现实36分钟，60分钟=90秒，1分钟=1.5秒
-            var seconds = (realTime.Hour * 60 + realTime.Minute)*60 + realTime.Second;
-            var mabiMinutes = (int)(seconds / 1.5);
-            var mabiHour = (mabiMinutes / 60) % 24;
-            var mabiMinute = mabiMinutes % 60;
-            return new DateTime(2021, 1, 1, mabiHour, mabiMinute, 0);
+            if (window == null) window = new MessageWindow();
+            window.t.Text = "洛奇时间" + TimeText;
+            window.Show();
         }
     }
 }
