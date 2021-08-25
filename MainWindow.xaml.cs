@@ -58,9 +58,16 @@ namespace MabinogiClock
                 }
         }
 
-        private void NewMabinogiClock_Click(object sender, RoutedEventArgs e)
+        private void NewClock_Click(object sender, RoutedEventArgs e)
         {
             _clocks.Add(new Clock() { IsEnabled = true, TimeText = now.Text });
+        }
+
+        private void RemoveClock_Click(object sender, RoutedEventArgs e)
+        {
+            var c = (Clock)((Button)sender).DataContext;
+            c.Remove();
+            _clocks.Remove(c);
         }
     }
 }

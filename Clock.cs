@@ -61,5 +61,9 @@ namespace MabinogiClock
             window.t.Text = "洛奇时间" + TimeText;
             window.Show();
         }
+        public void Remove()
+        {
+            window.Close();
+        }
     }
 }

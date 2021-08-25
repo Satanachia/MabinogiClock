@@ -15,7 +15,7 @@
                         <Run Text="当前洛奇时间："/>
                         <Run Name="now"/>
                     </TextBlock>
-                    <Button Content="新建" Click="NewMabinogiClock_Click" Padding="20,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    <Button Content="新建" Click="NewClock_Click" Padding="20,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                     <ListView Name="clocks" Margin="0,20,0,0" MinHeight="100">
                         <ListView.View>
                             <GridView>
@@ -44,7 +44,7 @@
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Button Content="现实时间"/>
-                                                    <Button Content="删除"/>
+                                                    <Button Content="删除" Click="RemoveClock_Click"/>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>

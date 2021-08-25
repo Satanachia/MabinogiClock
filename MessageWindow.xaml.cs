@@ -31,15 +31,38 @@ namespace MabinogiClock
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Hide();
+        }
+
+        bool force;
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (!force)
+            {
+                e.Cancel = true;
+                Hide();
+            }
+        }
+        public new void Close()
+        {
+            force = true;
+            base.Close();
+        }
+        protected override void OnClosed(EventArgs e)
+        {
+            windows.Remove(this);
             foreach (var w in windows)
                 if (w.IsVisible) return;
             FlashWindow.Stop(MainWindow.I);
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            e.Cancel = true;
-            Hide();
+            if (!IsVisible)
+            {
+                foreach (var w in windows)
+                    if (w.IsVisible) return;
+                FlashWindow.Stop(MainWindow.I);
+            }
         }
     }
 }
