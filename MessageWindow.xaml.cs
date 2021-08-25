@@ -57,12 +57,13 @@ namespace MabinogiClock
 
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!IsVisible)
-            {
-                foreach (var w in windows)
-                    if (w.IsVisible) return;
-                FlashWindow.Stop(MainWindow.I);
-            }
+            foreach (var w in windows)
+                if (w.IsVisible)
+                {
+                    FlashWindow.Start(MainWindow.I);
+                    return;
+                }
+            FlashWindow.Stop(MainWindow.I);
         }
     }
 }

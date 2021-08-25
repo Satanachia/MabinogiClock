@@ -54,7 +54,6 @@ namespace MabinogiClock
                 {
                     sound.Play();
                     c.ShowMessageBox();
-                    FlashWindow.Start(this);
                 }
         }
 
