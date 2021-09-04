@@ -63,7 +63,7 @@ namespace MabinogiClock
         }
         public void Remove()
         {
-            window.Close();
+            if (window != null) window.Close();
         }
     }
 }

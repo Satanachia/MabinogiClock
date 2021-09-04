@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MabinogiClock"
         mc:Ignorable="d"
-        Title="洛奇小闹钟" SizeToContent="WidthAndHeight" StateChanged="Window_StateChanged">
+        Title="洛奇小闹钟" WindowStartupLocation="Manual" SizeToContent="WidthAndHeight" StateChanged="Window_StateChanged">
     <Grid>
         <TextBlock Text="by 冰之妖夜玛一（亚特）" HorizontalAlignment="Right" Margin="150,0,0,0"/>
         <TabControl Name="tab">

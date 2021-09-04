@@ -10,10 +10,14 @@ namespace MabinogiClock
     class CountDown : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        DateTime StartTime;
+        public DateTime StartTime;
+        public readonly string H, M, S;
 
         public CountDown(string hours, string minutes, string seconds, string memo)
         {
+            H = hours;
+            M = minutes;
+            S = seconds;
             var h = string.IsNullOrWhiteSpace(hours) ? 0d : double.Parse(hours);
             var m = string.IsNullOrWhiteSpace(minutes) ? 0d : double.Parse(minutes);
             var s = string.IsNullOrWhiteSpace(seconds) ? 0d : double.Parse(seconds);
@@ -76,7 +80,7 @@ namespace MabinogiClock
         }
         public void Remove()
         {
-            window.Close();
+            if (window != null) window.Close();
         }
     }
 }
