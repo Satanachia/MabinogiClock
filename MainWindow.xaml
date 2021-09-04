@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MabinogiClock"
         mc:Ignorable="d"
-        Title="洛奇小闹钟" SizeToContent="WidthAndHeight">
+        Title="洛奇小闹钟" SizeToContent="WidthAndHeight" StateChanged="Window_StateChanged">
     <Grid>
         <TextBlock Text="by 冰之妖夜玛一（亚特）" HorizontalAlignment="Right" Margin="150,0,0,0"/>
-        <TabControl>
+        <TabControl Name="tab">
             <TabItem Header="洛奇时间">
                 <Grid>
                     <TextBlock>
@@ -55,30 +55,53 @@
                     </ListView>
                 </Grid>
             </TabItem>
-            <TabItem Header="倒计时" IsEnabled="False">
+            <TabItem Header="倒计时">
                 <Grid>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="倒计时间（时:分:秒）："/>
-                        <TextBox Text="24:00:00" Width="80"/>
-                        <Button Content="开始倒计时"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <TextBlock Text="倒计时："/>
+                        <TextBox Name="hours" Width="20"/>
+                        <TextBlock Text="时"/>
+                        <TextBox Name="minutes" Width="20"/>
+                        <TextBlock Text="分"/>
+                        <TextBox x:Name="seconds" Width="30"/>
+                        <TextBlock Text="秒"/>
+                        <TextBlock Text="备注：" Margin="10,0,0,0"/>
+                        <TextBox x:Name="memo" Width="50"/>
+                        <Button Content="开始" Padding="2,0" Click="NewCountDown_Click"/>
                     </StackPanel>
-                    <ListView Margin="0,20,0,0" MinHeight="100">
+                    
+                    <ListView Name="countDowns" Margin="0,20,0,0" MinHeight="100">
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns>
+                                    <GridViewColumn Header="有效">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsEnabled}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="备注" DisplayMemberBinding="{Binding Memo}"/>
                                     <GridViewColumn Header="进度">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <ProgressBar/>
+                                                <ProgressBar Value="{Binding PassSeconds,Mode=OneWay}" Maximum="{Binding TotalSeconds}" Width="50" Height="16"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="循环">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding Loop}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <StackPanel>
-                                                    <Button Content="重新开始"/>
-                                                    <Button Content="删除"/>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button Content="重新开始" Click="RestartCountDown_Click"/>
+                                                    <Button Content="删除" Click="RemoveCountDown_Click"/>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
