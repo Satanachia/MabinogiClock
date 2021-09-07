@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MabinogiClock"
         mc:Ignorable="d"
-        Title="洛奇小闹钟" WindowStartupLocation="Manual" SizeToContent="WidthAndHeight" StateChanged="Window_StateChanged">
+        Title="洛奇小闹钟" FontSize="20" WindowStartupLocation="Manual" SizeToContent="WidthAndHeight" StateChanged="Window_StateChanged">
     <Grid>
-        <TextBlock Text="by 冰之妖夜玛一（亚特）" HorizontalAlignment="Right" Margin="150,0,0,0"/>
+        <TextBlock Text="by 冰之妖夜玛一（亚特）" HorizontalAlignment="Right" Margin="180,2,0,0"/>
         <TabControl Name="tab">
             <TabItem Header="洛奇时间">
                 <Grid>
@@ -16,7 +16,7 @@
                         <Run Name="now"/>
                     </TextBlock>
                     <Button Content="新建" Click="NewClock_Click" Padding="20,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                    <ListView Name="clocks" Margin="0,20,0,0" MinHeight="100">
+                    <ListView Name="clocks" Margin="0,30,0,0" MinHeight="100">
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns>
@@ -30,7 +30,7 @@
                                     <GridViewColumn Header="洛奇时间">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBox x:Name="t" Text="{Binding TimeText,UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                                <TextBox x:Name="t" Text="{Binding TimeText,UpdateSourceTrigger=PropertyChanged}" Width="75"/>
                                                 <DataTemplate.Triggers>
                                                     <DataTrigger Binding="{Binding IsInvalid}" Value="True">
                                                         <Setter TargetName="t" Property="Background" Value="#f99"/>
@@ -59,18 +59,18 @@
                 <Grid>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                         <TextBlock Text="倒计时："/>
-                        <TextBox Name="hours" Width="20"/>
+                        <TextBox Name="hours" Width="30"/>
                         <TextBlock Text="时"/>
-                        <TextBox Name="minutes" Width="20"/>
+                        <TextBox Name="minutes" Width="30"/>
                         <TextBlock Text="分"/>
-                        <TextBox x:Name="seconds" Width="30"/>
+                        <TextBox x:Name="seconds" Width="45"/>
                         <TextBlock Text="秒"/>
                         <TextBlock Text="备注：" Margin="10,0,0,0"/>
-                        <TextBox x:Name="memo" Width="50"/>
+                        <TextBox x:Name="memo" Width="75"/>
                         <Button Content="开始" Padding="2,0" Click="NewCountDown_Click"/>
                     </StackPanel>
                     
-                    <ListView Name="countDowns" Margin="0,20,0,0" MinHeight="100">
+                    <ListView Name="countDowns" Margin="0,30,0,0" MinHeight="100">
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns>
