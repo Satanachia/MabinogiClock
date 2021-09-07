@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MabinogiClock", "MabinogiCl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7053A8D4-D298-4177-82DF-0383B767C7F9}"
 	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
 		save.wav = save.wav
 	EndProjectSection
 EndProject
