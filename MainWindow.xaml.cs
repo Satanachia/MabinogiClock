@@ -36,7 +36,7 @@ namespace MabinogiClock
         {
             I = this;
             int panel = 0;
-            double left = 0d, top = 0d;
+            double left = 120d, top = 120d;
             _clocks = new ObservableCollection<Clock>();
             _countDowns = new ObservableCollection<CountDown>();
             try
@@ -75,8 +75,8 @@ namespace MabinogiClock
                     }
                 if (error) MessageBox.Show("存档部分损坏");
                 int.TryParse(config["panel"] ?? "0", out panel);
-                double.TryParse(config["left"] ?? "0", out left);
-                double.TryParse(config["top"] ?? "0", out top);
+                double.TryParse(config["left"] ?? "120", out left);
+                double.TryParse(config["top"] ?? "120", out top);
             }
             catch
             {
@@ -92,8 +92,16 @@ namespace MabinogiClock
             timer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1.5) };
             timer.Tick += Timer_Tick;
             timer.Start();
-            sound = new SoundPlayer("save.wav");
-            sound.Load();
+            try
+            {
+                sound = new SoundPlayer("save.wav");
+                sound.Load();
+            }
+            catch
+            {
+                MessageBox.Show("加载声音文件save.wav失败。");
+                sound = null;
+            }
             Timer_Tick(null, null);
             notifyIcon = new System.Windows.Forms.NotifyIcon();
             notifyIcon.Click += NotifyIcon_Click; ;
@@ -181,7 +189,7 @@ namespace MabinogiClock
             foreach (var c in _clocks)
                 if (c.IsEnabled && !c.IsInvalid && c.MabinogiTime.Hour == now.Hour && c.MabinogiTime.Minute == now.Minute)
                 {
-                    sound.Play();
+                    if (sound != null) sound.Play();
                     c.ShowMessageBox();
                 }
             foreach (var cd in _countDowns)
@@ -190,7 +198,7 @@ namespace MabinogiClock
                     cd.RefreshProgress();
                     if (cd.IsEnabled && cd.PassSeconds >= cd.TotalSeconds)
                     {
-                        sound.Play();
+                        if (sound != null) sound.Play();
                         cd.ShowMessage();
                         if (cd.Loop) cd.Restart();
                         else cd.IsEnabled = false;
@@ -203,7 +211,7 @@ namespace MabinogiClock
             _clocks.Add(new Clock() { IsEnabled = true, TimeText = now.Text });
         }
 
-        private void Clock2RealTime_Click(object sender, RoutedEventArgs e)
+        private void NextRealTime_Click(object sender, RoutedEventArgs e)
         {
             var c = (Clock)((Button)sender).DataContext;
             new Thread(() => MessageBox.Show("下一次提醒为本机时间"+c.NextRealTime().ToString("HH:mm:ss"))).Start();
@@ -246,6 +254,12 @@ namespace MabinogiClock
             var cd = (CountDown)((Button)sender).DataContext;
             cd.Remove();
             _countDowns.Remove(cd);
+        }
+
+        private void Count0Time_Click(object sender, RoutedEventArgs e)
+        {
+            var cd = (CountDown)((Button)sender).DataContext;
+            new Thread(() => MessageBox.Show("将在本机时间" + cd.StartTime.AddSeconds(cd.TotalSeconds).ToString("HH:mm:ss") + "时提醒")).Start();
         }
     }
 }

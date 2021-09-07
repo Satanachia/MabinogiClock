@@ -16,7 +16,7 @@
                         <Run Name="now"/>
                     </TextBlock>
                     <Button Content="新建" Click="NewClock_Click" Padding="20,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                    <ListView Name="clocks" Margin="0,30,0,0" MinHeight="100">
+                    <ListView Name="clocks" Margin="0,30,0,0" MinHeight="150">
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns>
@@ -43,7 +43,7 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Button Content="现实时间" Click="Clock2RealTime_Click"/>
+                                                    <Button Content="下次提醒时间" Click="NextRealTime_Click"/>
                                                     <Button Content="删除" Click="RemoveClock_Click"/>
                                                 </StackPanel>
                                             </DataTemplate>
@@ -61,16 +61,15 @@
                         <TextBlock Text="倒计时："/>
                         <TextBox Name="hours" Width="30"/>
                         <TextBlock Text="时"/>
-                        <TextBox Name="minutes" Width="30"/>
+                        <TextBox Name="minutes" Width="45"/>
                         <TextBlock Text="分"/>
-                        <TextBox x:Name="seconds" Width="45"/>
+                        <TextBox x:Name="seconds" Width="60"/>
                         <TextBlock Text="秒"/>
                         <TextBlock Text="备注：" Margin="10,0,0,0"/>
-                        <TextBox x:Name="memo" Width="75"/>
+                        <TextBox x:Name="memo" Width="60"/>
                         <Button Content="开始" Padding="2,0" Click="NewCountDown_Click"/>
                     </StackPanel>
-                    
-                    <ListView Name="countDowns" Margin="0,30,0,0" MinHeight="100">
+                    <ListView Name="countDowns" Margin="0,30,0,0" MinHeight="150">
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns>
@@ -100,6 +99,7 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
+                                                    <Button Content="提醒时间" Click="Count0Time_Click"/>
                                                     <Button Content="重新开始" Click="RestartCountDown_Click"/>
                                                     <Button Content="删除" Click="RemoveCountDown_Click"/>
                                                 </StackPanel>
