@@ -176,7 +176,7 @@ namespace MabinogiClock
 
         private void Timer_Tick(object _, EventArgs _2)
         {
-            var now = Clock.Real2Mabinogi(DateTime.Now);
+            var now = Clock.Real2Mabinogi(DateTimeOffset.Now);
             this.now.Text = now.ToString("HH:mm");
             foreach (var c in _clocks)
                 if (c.IsEnabled && !c.IsInvalid && c.MabinogiTime.Hour == now.Hour && c.MabinogiTime.Minute == now.Minute)
@@ -201,6 +201,12 @@ namespace MabinogiClock
         private void NewClock_Click(object sender, RoutedEventArgs e)
         {
             _clocks.Add(new Clock() { IsEnabled = true, TimeText = now.Text });
+        }
+
+        private void Clock2RealTime_Click(object sender, RoutedEventArgs e)
+        {
+            var c = (Clock)((Button)sender).DataContext;
+            new Thread(() => MessageBox.Show("下一次提醒为本机时间"+c.NextRealTime().ToString("HH:mm:ss"))).Start();
         }
 
         private void RemoveClock_Click(object sender, RoutedEventArgs e)

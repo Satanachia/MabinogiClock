@@ -9,15 +9,24 @@ namespace MabinogiClock
 {
     class Clock : INotifyPropertyChanged
     {
-        public static DateTime Real2Mabinogi(DateTime realTime)
+        public static DateTime Real2Mabinogi(DateTimeOffset realTime)
         {
             //爱琳时间24小时=现实36分钟，60分钟=90秒，1分钟=1.5秒
+            realTime = realTime.ToOffset(TimeSpan.FromHours(8));
             var seconds = (realTime.Hour * 60 + realTime.Minute)*60 + realTime.Second + realTime.Millisecond/1000d;
             var mabiMinutes = (int)Math.Round(seconds / 1.5);
             var mabiHour = (mabiMinutes / 60) % 24;
             var mabiMinute = mabiMinutes % 60;
             return new DateTime(2021, 1, 1, mabiHour, mabiMinute, 0);
         }
+        public static DateTimeOffset NextRealTime(DateTimeOffset realTime, int mabiHour, int mabiMinute)
+        {
+            var mabi = Real2Mabinogi(realTime);
+            var mabiMinutes = (mabiHour - mabi.Hour) * 60 + mabiMinute - mabi.Minute;
+            if (mabiMinutes < 0) mabiMinutes += 60 * 24;
+            return realTime + TimeSpan.FromSeconds(1.5 * mabiMinutes);
+        }
+        public DateTimeOffset NextRealTime() => NextRealTime(DateTimeOffset.Now, MabinogiTime.Hour, MabinogiTime.Minute);
 
         public event PropertyChangedEventHandler PropertyChanged;
 

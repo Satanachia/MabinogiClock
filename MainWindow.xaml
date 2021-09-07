@@ -43,7 +43,7 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Button Content="现实时间"/>
+                                                    <Button Content="现实时间" Click="Clock2RealTime_Click"/>
                                                     <Button Content="删除" Click="RemoveClock_Click"/>
                                                 </StackPanel>
                                             </DataTemplate>
